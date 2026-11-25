@@ -106,6 +106,20 @@ export function detectDateOrder(numericDates, hintText = '') {
   return 'MDY';
 }
 
+/**
+ * End of the statement when no printed date has a year. Months on both sides of New Year
+ * (Nov/Dec and Jan/Feb) mean the statement ends early in the year, so December rows belong
+ * to the year before. A statement can't end in a future month, so that also picks the year.
+ */
+export function inferEnd(months, now = new Date()) {
+  if (!months.length) return null;
+  const wraps = months.some((m) => m >= 11) && months.some((m) => m <= 2);
+  const m = wraps ? Math.max(...months.filter((x) => x <= 6)) : Math.max(...months);
+  let y = now.getFullYear();
+  if (m > now.getMonth() + 1) y -= 1;
+  return { y, m, d: 31, inferred: true };
+}
+
 function resolveDate(raw, order, end) {
   let y = raw.y, m, d;
   if (raw.kind === 'numeric') {
@@ -179,6 +193,7 @@ export function parseStatement(pages, opts = {}) {
 
   // Pass 1: collect dates to decide the date order and the statement end date.
   const numeric = [];
+  const yearlessMonths = [];
   let end = null;
   const consider = (y, m, d) => {
     if (!y || m < 1 || m > 12 || d < 1 || d > 31) return;
@@ -193,6 +208,7 @@ export function parseStatement(pages, opts = {}) {
       if (!raw) continue;
       if (raw.kind === 'numeric') numeric.push(raw);
       if (raw.kind === 'iso' || raw.kind === 'named') consider(raw.y, raw.m, raw.d);
+      if (raw.kind === 'named' && !raw.y) yearlessMonths.push(raw.m);
     }
   }
   const dateOrder = opts.dateOrder || detectDateOrder(numeric, fullText);
@@ -200,6 +216,11 @@ export function parseStatement(pages, opts = {}) {
     if (!raw.y) continue;
     const [d, m] = dateOrder === 'DMY' ? [raw.a, raw.b] : [raw.b, raw.a];
     consider(raw.y, m, d);
+  }
+  // No full date anywhere (e.g. the period line was lost to OCR): infer the end month from the rows.
+  if (!end) {
+    for (const raw of numeric) if (!raw.y) yearlessMonths.push(dateOrder === 'DMY' ? raw.b : raw.a);
+    end = inferEnd(yearlessMonths.filter((m) => m >= 1 && m <= 12));
   }
 
   // Pass 2: walk lines, track table headers, emit transactions.
