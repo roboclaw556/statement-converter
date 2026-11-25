@@ -70,3 +70,26 @@ test('each transaction says whether its date was printed on the row or carried f
   assert.ok(r.transactions.some((t) => t.dateSource === 'carried'), 'UK layout prints the date once per day');
   assert.equal(r.transactions[0].dateSource, 'row');
 });
+
+test('without any full date, the year rolls over Dec to Jan from the row months', async () => {
+  const { extractLines, fromLines } = await import('../src/core/index.js');
+  const { inferEnd } = await import('../src/core/parse.js');
+  const now = new Date(Date.UTC(2026, 10, 25));
+  assert.deepEqual(inferEnd([12, 12, 1, 2], now), { y: 2026, m: 2, d: 31, inferred: true });
+  assert.deepEqual(inferEnd([2, 1, 12], now), { y: 2026, m: 2, d: 31, inferred: true }, 'newest-first order');
+  assert.equal(inferEnd([12], new Date(Date.UTC(2026, 0, 10))).y, 2025, 'no statement ends in a future month');
+  assert.equal(inferEnd([]), null);
+
+  // the UK sample with its period line removed, as when OCR garbles it
+  const { pages } = await extractLines(await load('uk_paid_in_out.pdf'));
+  const withYear = /\b(19|20)\d\d\b/;
+  const stripped = pages.map((p) => p.filter((l) => !withYear.test(l.text)));
+  const full = fromLines(pages);
+  const r = fromLines(stripped);
+  assert.equal(r.transactions.length, full.transactions.length);
+  const today = new Date().toISOString().slice(0, 10);
+  assert.ok(r.transactions.every((t) => t.date <= today), 'no dates in the future');
+  const dec = r.transactions.filter((t) => t.date.slice(5, 7) === '12');
+  const jan = r.transactions.filter((t) => t.date.slice(5, 7) === '01');
+  if (dec.length && jan.length) assert.equal(Number(dec[0].date.slice(0, 4)) + 1, Number(jan[0].date.slice(0, 4)));
+});
