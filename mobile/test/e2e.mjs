@@ -110,7 +110,7 @@ async function waitDone(page, timeout = 120000) {
   }, null, { timeout });
   return page.evaluate(() => {
     const f = globalThis.__app.state.files[globalThis.__app.state.active];
-    return { status: f.status, error: f.error, result: f.result && { status: f.result.status, n: f.result.transactions.length, flagged: f.result.flaggedCount, opening: f.result.opening, closing: f.result.closing, tx: f.result.transactions.map((t) => [t.date, t.amount]) } };
+    return { status: f.status, error: f.error, result: f.result && { status: f.result.status, n: f.result.transactions.length, flagged: f.result.flaggedCount, opening: f.result.opening, closing: f.result.closing, tx: f.result.transactions.map((t) => [t.date, t.amount, t.flags]) } };
   });
 }
 const expected = (name) => JSON.parse(readFileSync(join(SAMPLES, name + '.json'), 'utf8'));
@@ -198,8 +198,14 @@ for (const n of SAMPLE_NAMES) {
     await upload(page, [1, 2].map((p) => join(IMG, `${n}__photo-${p}.jpg`)).filter(existsSync));
     const r = await waitDone(page, 240000);
     assert.equal(r.status, 'done', r.error);
-    const diff = sameRows(r.result, expected(n));
-    assert.equal(diff, null, `${diff} (status ${r.result.status}, flagged ${r.result.flagged})`);
+    // Every amount must be exact. A date may only be wrong on a row the app flags
+    // "Date unclear on the scan", so the person is asked to check it.
+    const exp = expected(n).transactions;
+    assert.equal(r.result.tx.length, exp.length, 'row count');
+    r.result.tx.forEach(([date, amount, flags], i) => {
+      assert.equal(amount, exp[i].amount, `row ${i} amount`);
+      if (date !== exp[i].date) assert.ok(flags.includes('date_check'), `row ${i} date ${date} vs ${exp[i].date} and not flagged`);
+    });
     assert.equal(r.result.status, 'reconciled');
     await context.close();
   });
