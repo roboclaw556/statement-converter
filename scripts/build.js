@@ -4,7 +4,8 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { formatById } from '../src/core/formats.js';
+import { formatById, FORMATS as ALL_FORMATS } from '../src/core/formats.js';
+import { PLANS, FEATURE_LABELS, COMING_SOON } from '../src/core/plans.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -49,7 +50,7 @@ const FORMATS = {
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-function page({ path, title, description, h1, lead, content = '', tool = true, dateOrder = '', format = '', bank = '', jsonld = null, scripts }) {
+function page({ path, title, description, h1, lead, content = '', tool = true, dateOrder = '', format = '', bank = '', jsonld = null, scripts, noindex = false }) {
   const depth = path.split('/').filter(Boolean).length;
   const root = depth ? '../'.repeat(depth) : './';
   const fill = (tpl, map) => tpl.replace(/\{\{(\w+)\}\}/g, (_, k) => (k in map ? map[k] : ''));
@@ -61,7 +62,7 @@ function page({ path, title, description, h1, lead, content = '', tool = true, d
     h1: esc(h1), lead: esc(lead), brand: esc(site.brand), root, content,
     tool: toolMarkup,
     scripts: scripts ?? (tool ? `<script type="module" src="${root}app.js"></script>` : ''),
-    jsonld: jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld).replace(/</g, '\\u003c')}</script>` : '',
+    jsonld: (noindex ? '<meta name="robots" content="noindex">' : '') + (jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld).replace(/</g, '\\u003c')}</script>` : ''),
   });
   const dir = join(DIST, path);
   mkdirSync(dir, { recursive: true });
@@ -113,10 +114,23 @@ const howItWorks = `<h2 id="how">How it works</h2><ol class="steps">
 <li><strong>We check every cent.</strong> Opening balance plus every transaction must equal the closing balance. Rows that don't add up are highlighted for you.</li>
 <li><strong>Download for your software.</strong> Excel, CSV, QuickBooks, Xero or OFX, with dates and signs already right.</li></ol>`;
 
-const pricing = `<h2 id="pricing">Pricing</h2><div class="plans">
-<div class="plan featured"><h3>Beta</h3><div class="price">Free</div><p>Every feature, while we're in beta. Tell us what to improve on the <a href="feedback/">feedback page</a>.</p></div>
-<div class="plan"><h3>Pro</h3><div class="price">$19<small>/mo</small></div><p>Coming soon: email import, batch conversion, saved bank fixes.</p></div>
-<div class="plan"><h3>Firm</h3><div class="price">$99<small>/mo</small></div><p>Coming soon: client upload links, team seats, priority bank support.</p></div></div>`;
+const SHOWN = ['statementsPerMonth', 'allFormats', 'lenderReport', 'fraudChecks', 'categoryRules', 'aiCategorizePerMonth', 'emailImport', 'folderImport', 'accountingPush', 'clientPortal', 'seats', 'whiteLabel', 'apiPagesPerMonth'];
+function featureLine(k, v) {
+  const label = FEATURE_LABELS[k];
+  if (v === false || v === 0) return `<li class="no">${esc(label)}</li>`;
+  const soon = COMING_SOON[k] ? ' <span class="soon">Coming soon</span>' : '';
+  if (k === 'statementsPerMonth') return `<li>${v === null ? 'Unlimited statements' : `${v} statements a month`}</li>`;
+  if (k === 'seats') return `<li>${v} team seat${v > 1 ? 's' : ''}</li>`;
+  if (typeof v === 'number') return `<li>${esc(label.replace(/ \(.*\)| per month/, ''))}: ${v.toLocaleString('en-US')} a month</li>`;
+  return `<li>${esc(label)}${soon}</li>`;
+}
+function plansHtml(root, withButtons) {
+  return `<div class="plans">${Object.values(PLANS).map((p) => `<div class="plan${p.id === 'pro' ? ' featured' : ''}"><h3>${esc(p.name)}</h3>
+<div class="price" data-price-month="${p.priceMonthly}" data-price-year="${p.priceYearly}">${p.priceMonthly ? `$${p.priceMonthly}<small>/mo</small>` : 'Free'}</div>
+<p>${esc(p.blurb)}</p><ul>${SHOWN.map((k) => featureLine(k, p.entitlements[k])).join('')}</ul>
+${withButtons ? `<button type="button" data-plan="${p.id}"${p.id === 'pro' ? ' class="primary"' : ''}>${p.id === 'free' ? 'Start free' : `Choose ${esc(p.name)}`}</button>` : ''}</div>`).join('')}</div>`;
+}
+const pricing = `<h2 id="pricing">Pricing</h2>${plansHtml('./', false)}<p><a href="pricing/">Compare plans and subscribe</a>. Yearly plans get two months free.</p>`;
 
 function bankLinks(root) {
   return `<ul class="links">${banks.map((b) => `<li><a href="${root}banks/${b.slug}/">${esc(b.name)}</a></li>`).join('')}</ul>`;
@@ -156,7 +170,7 @@ TARGET_LIST = TARGETS;
 rmSync(DIST, { recursive: true, force: true });
 mkdirSync(DIST, { recursive: true });
 cpSync(join(ROOT, 'src/core'), join(DIST, 'core'), { recursive: true });
-for (const f of ['app.js', 'feedback.js', 'feedback-page.js', 'styles.css']) cpSync(join(ROOT, 'src/app', f), join(DIST, f));
+for (const f of ['app.js', 'feedback.js', 'feedback-page.js', 'styles.css', 'api.js', 'nav.js', 'login.js', 'account.js', 'pricing.js', 'upload.js', 'embed.js', 'embed-page.js']) cpSync(join(ROOT, 'src/app', f), join(DIST, f));
 mkdirSync(join(DIST, 'vendor'), { recursive: true });
 for (const f of ['pdf.min.mjs', 'pdf.worker.min.mjs']) {
   cpSync(join(ROOT, 'node_modules/pdfjs-dist/build', f), join(DIST, 'vendor', f));
@@ -285,14 +299,98 @@ page({
 <p>Questions or deletion requests: use the <a href="../feedback/">feedback page</a> and include your email.</p>`,
 });
 
+// Pricing
+page({
+  path: 'pricing/', title: `Pricing | ${site.brand}`, tool: false,
+  description: `${site.brand} plans: Free, Pro for bookkeepers and Firm for practices with clients and a team.`,
+  h1: 'Simple pricing for bookkeepers',
+  lead: 'Start free. Upgrade when statements become a weekly job. Cancel any time.',
+  content: `<p><span class="toggle"><button type="button" data-interval="month" aria-pressed="true">Monthly</button><button type="button" data-interval="year" aria-pressed="false">Yearly (2 months free)</button></span></p>
+${plansHtml('../', true)}<p id="payMsg" class="muted"></p>
+<h2>Questions</h2>
+<details><summary>Can I cancel?</summary><p>Yes, any time from your account page. You keep the plan until the end of the period you paid for.</p></details>
+<details><summary>Are my statements uploaded?</summary><p>No. The converter runs in your browser. Only email import, folder import, the client portal and the API process files on our servers, because those need to.</p></details>
+<details><summary>Do you offer the app on iPhone and Android?</summary><p>Yes. Subscriptions bought in the app work on the web too, and the other way round.</p></details>`,
+  scripts: '<script type="module" src="../pricing.js"></script>',
+});
+
+// Sign in
+page({
+  path: 'login/', title: `Sign in | ${site.brand}`, tool: false, noindex: true,
+  description: `Sign in to ${site.brand}.`, h1: 'Sign in', lead: 'We email you a link and a code. No password to remember.',
+  content: `<div class="card"><form class="stack" id="emailForm"><label>Email<input type="email" id="email" required autocomplete="email"></label><div><button class="primary">Email me a sign-in link</button></div></form>
+<form class="stack" id="codeForm" hidden><p>We sent a code to <strong id="sentTo"></strong>.</p><label>6-digit code<input id="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9 ]{6,7}" required></label><div class="row"><button class="primary">Sign in</button><button type="button" id="again">Use a different email</button></div></form>
+<p id="loginMsg" class="muted"></p></div>`,
+  scripts: '<script type="module" src="../login.js"></script>',
+});
+
+// Account
+page({
+  path: 'account/', title: `Your account | ${site.brand}`, tool: false, noindex: true,
+  description: `Your ${site.brand} account.`, h1: 'Your account', lead: '',
+  content: '<div id="account"><p class="muted">Loading…</p></div>',
+  scripts: '<script type="module" src="../account.js"></script>',
+});
+
+// Client upload portal
+page({
+  path: 'upload/', title: 'Upload your bank statements', tool: false, noindex: true,
+  description: 'Send your bank statements to your accountant.', h1: 'Upload your bank statements', lead: '',
+  content: `<div class="card"><div class="brandbar"><span id="logo"></span><p>Hi <strong id="client"></strong>, <strong id="firm"></strong> asked for your bank statements. Choose the PDFs and press Send. Only your accountant can see them.</p></div>
+<form class="stack" id="upForm" hidden><label>Statement PDFs<input type="file" id="upFiles" accept="application/pdf,.pdf" multiple required></label><div><button class="primary">Send</button></div></form>
+<div id="upMsg" class="muted"></div></div>`,
+  scripts: '<script type="module" src="../upload.js"></script>',
+});
+
+// Embeddable converter (framed on firms' sites)
+{
+  const dir = join(DIST, 'embed');
+  mkdirSync(dir, { recursive: true });
+  const tool = toolHtml.replace(/\{\{root\}\}/g, '../').replace(/\{\{\w+\}\}/g, '').replace(/<a href="\.\.\/feedback\/">[^<]*<\/a>/, '');
+  writeFileSync(join(dir, 'index.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Bank statement converter</title><link rel="stylesheet" href="../styles.css"><style>body{background:transparent}main{padding:8px}.brandbar img{max-height:32px;margin-right:8px}#embedBrand{display:flex;align-items:center;font-weight:600;margin:4px 0 10px}</style></head>
+<body><main><div id="embedBrand"></div>${tool}<p class="hint">Converted in your browser by <a href="https://${esc(site.domain.replace(/^https?:\/\//, ''))}/" target="_blank" rel="noopener">${esc(site.brand)}</a>.</p></main>
+<script type="module" src="../embed-page.js"></script><script type="module" src="../app.js"></script></body></html>`);
+}
+
+// API docs
+page({
+  path: 'docs/api/', title: `API | ${site.brand}`, tool: false,
+  description: `Convert bank statement PDFs to JSON, Excel, QuickBooks, Xero and 13 more formats with one HTTP call.`,
+  h1: 'Bank statement API', lead: 'One HTTP call: PDF in, balance-checked transactions out. Included in the Firm plan.',
+  content: `<h2>Authentication</h2><p>Create a key on your <a href="../../account/#api">account page</a> and send it as <code>Authorization: Bearer sk_…</code>. Usage is counted per PDF page (Firm: 2,000 pages a month).</p>
+<h2>Convert a statement</h2><pre>curl -X POST "${esc(site.domain)}/api/v1/convert?include=categories,lender,fraud" \\
+  -H "Authorization: Bearer $STATEMENTOTTER_KEY" \\
+  -H "Content-Type: application/pdf" \\
+  --data-binary @statement.pdf</pre>
+<p>Query parameters:</p><ul>
+<li><code>format</code>: <code>json</code> (default) or a file format: ${ALL_FORMATS.map((f) => `<code>${esc(f.id)}</code>`).join(', ')}.</li>
+<li><code>include</code>: any of <code>categories</code>, <code>lender</code>, <code>fraud</code>.</li>
+<li><code>date_order</code>: <code>MDY</code> or <code>DMY</code> when the statement is ambiguous.</li>
+<li>Header <code>X-PDF-Password</code> for password-protected PDFs.</li></ul>
+<p>You can also send <code>multipart/form-data</code> with the PDF in a <code>file</code> field. Maximum 20 MB and 200 pages.</p>
+<h2>Response</h2><pre>{
+  "filename": "statement.pdf",
+  "pages": 3,
+  "check": { "status": "reconciled", "difference": 0, "flaggedRows": 0 },
+  "opening": 245000, "closing": 312055, "credits": 180000, "debits": 112945,
+  "currencyUnit": "cents",
+  "transactions": [
+    { "date": "2026-01-05", "description": "CARD PURCHASE OFFICE SUPPLIES", "amount": -4820, "balance": 240180, "flags": [], "category": "Office Supplies" }
+  ]
+}</pre>
+<p><code>check.status</code> is <code>reconciled</code> (opening + transactions = closing), <code>running_balance_ok</code>, <code>mismatch</code> (see rows with <code>flags</code>) or <code>unverified</code>. Amounts are integer cents; money out is negative.</p>
+<h2>Other endpoints</h2><ul><li><code>GET /api/v1/formats</code>: the file formats.</li><li><code>GET /api/v1/usage</code>: pages used this month.</li></ul>
+<h2>Errors</h2><p>Errors are JSON: <code>{"error": "code", "message": "…"}</code>. <code>401</code> bad key, <code>402</code> monthly limit, <code>413</code> too large, <code>415</code> not a PDF, <code>422</code> unreadable or needs a password.</p>`,
+});
+
 // Sitemap + robots
-const urls = pages.filter((p) => !p.startsWith('feedback') && !p.startsWith('privacy'));
+const urls = pages.filter((p) => !/^(feedback|privacy|login|account|upload)\//.test(p));
 writeFileSync(join(DIST, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((p) => `  <url><loc>${site.domain}/${p}</loc></url>`).join('\n')}
 </urlset>
 `);
-writeFileSync(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${site.domain}/sitemap.xml\n`);
-writeFileSync(join(DIST, '_headers'), `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  Content-Security-Policy: default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'\n`);
+writeFileSync(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /account/\nDisallow: /upload/\nDisallow: /embed/\nSitemap: ${site.domain}/sitemap.xml\n`);
+writeFileSync(join(DIST, '_headers'), `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  Content-Security-Policy: default-src 'self'; script-src 'self'; worker-src 'self' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'\n`);
 
 console.log(`Built ${pages.length} pages into dist/`);

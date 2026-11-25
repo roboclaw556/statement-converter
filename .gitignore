@@ -1,4 +1,5 @@
-node_modules/
+.dev.vars
+.wrangler/
 dist/
 feedback/weekly/
-.wrangler/
+node_modules/

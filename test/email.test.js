@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createMimeMessage } from 'mimetext';
 import PostalMime from 'postal-mime';
-import { buildReply } from '../src/process.js';
+import { buildReply } from '../server/lib/email-reply.js';
 
 function incoming(files) {
   const m = createMimeMessage();
@@ -13,7 +13,7 @@ function incoming(files) {
   m.setHeader('Message-ID', '<abc123@example.com>');
   m.addMessage({ contentType: 'text/plain', data: 'see attached' });
   for (const f of files) {
-    const bytes = readFileSync(new URL('../../test/samples/' + f, import.meta.url));
+    const bytes = readFileSync(new URL('./samples/' + f, import.meta.url));
     m.addAttachment({ filename: f, contentType: 'application/pdf', data: bytes.toString('base64') });
   }
   return new TextEncoder().encode(m.asRaw());

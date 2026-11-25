@@ -38,6 +38,17 @@
         <button type="button" id="moreDownload">Download</button>
       </div>
 
+      <div class="limit" id="limitNote" hidden></div>
+
+      <div class="pro-bar" id="proBar">
+        <button type="button" data-pro="ai">Categorize the rest with AI</button>
+        <button type="button" data-pro="lender">Lender report</button>
+        <button type="button" data-pro="fraud">Tamper check</button>
+        <button type="button" data-pro="push-quickbooks">Send to QuickBooks</button>
+        <button type="button" data-pro="push-xero">Send to Xero</button>
+      </div>
+      <div class="panel" id="proPanel" hidden></div>
+
       <div class="nudge" id="nudge">
         <span>Did this convert correctly?</span>
         <button type="button" data-quick="yes">Yes</button>
@@ -47,7 +58,7 @@
 
       <div class="table-wrap">
         <table id="table">
-          <thead><tr><th>Date</th><th>Description</th><th class="num">Money out</th><th class="num">Money in</th><th class="num">Balance</th><th>Check</th></tr></thead>
+          <thead><tr><th>Date</th><th>Description</th><th class="num">Money out</th><th class="num">Money in</th><th class="num">Balance</th><th>Category</th><th>Check</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>

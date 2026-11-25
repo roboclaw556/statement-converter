@@ -117,10 +117,26 @@ export async function stripeWebhook(ctx) {
   if (!(await verifyStripeSignature(env.STRIPE_WEBHOOK_SECRET, req.headers.get('stripe-signature'), body))) {
     fail(400, 'bad_signature', 'Invalid signature');
   }
-  const event = JSON.parse(body);
-  const seen = await one(env, 'SELECT id FROM billing_events WHERE id = ?', event.id);
-  if (seen) return json({ ok: true, duplicate: true });
+  let event;
+  try { event = JSON.parse(body); } catch { fail(400, 'bad_json', 'Invalid JSON'); }
+  if (!event?.id) fail(400, 'bad_event', 'Missing event id');
+  // Claim the event first so two deliveries of the same event can't both apply it.
+  if (!(await claimEvent(env, event.id, 'stripe', event.type))) return json({ ok: true, duplicate: true });
+  try {
+    await applyStripeEvent(env, event);
+  } catch (e) {
+    await run(env, 'DELETE FROM billing_events WHERE id = ?', event.id); // let Stripe retry
+    throw e;
+  }
+  return json({ ok: true });
+}
 
+async function claimEvent(env, id, provider, type) {
+  const r = await run(env, 'INSERT OR IGNORE INTO billing_events (id, provider, type) VALUES (?, ?, ?)', id, provider, String(type));
+  return (r?.meta?.changes ?? 1) > 0;
+}
+
+async function applyStripeEvent(env, event) {
   const obj = event.data?.object || {};
   if (event.type === 'checkout.session.completed' && obj.mode === 'subscription') {
     const teamId = obj.client_reference_id || obj.metadata?.team_id;
@@ -132,10 +148,8 @@ export async function stripeWebhook(ctx) {
   } else if (['customer.subscription.created', 'customer.subscription.updated', 'customer.subscription.deleted'].includes(event.type)) {
     await applySubscription(env, obj);
   } else if (event.type === 'invoice.payment_failed' && obj.customer) {
-    await run(env, "UPDATE teams SET plan_status = 'past_due' WHERE stripe_customer_id = ?", obj.customer);
+    await run(env, "UPDATE teams SET plan_status = 'past_due' WHERE stripe_customer_id = ? AND plan_source = 'web'", obj.customer);
   }
-  await run(env, 'INSERT INTO billing_events (id, provider, type) VALUES (?, ?, ?)', event.id, 'stripe', event.type);
-  return json({ ok: true });
 }
 
 /**
@@ -148,7 +162,7 @@ export async function revenuecatWebhook(ctx) {
   if (!env.REVENUECAT_WEBHOOK_SECRET || !safeEqual(auth, `Bearer ${env.REVENUECAT_WEBHOOK_SECRET}`)) fail(401, 'unauthorized', 'Bad webhook secret');
   const { event } = await readJson(req, 256 * 1024);
   if (!event?.id) fail(400, 'bad_event', 'Missing event');
-  if (await one(env, 'SELECT id FROM billing_events WHERE id = ?', event.id)) return json({ ok: true, duplicate: true });
+  if (!(await claimEvent(env, String(event.id), 'revenuecat', event.type))) return json({ ok: true, duplicate: true });
   const teamId = str(event.app_user_id, 80);
   const team = await one(env, 'SELECT * FROM teams WHERE id = ?', teamId);
   if (team) {
@@ -170,6 +184,5 @@ export async function revenuecatWebhook(ctx) {
       await run(env, "UPDATE teams SET plan_status = 'past_due' WHERE id = ?", team.id);
     }
   }
-  await run(env, 'INSERT INTO billing_events (id, provider, type) VALUES (?, ?, ?)', event.id, 'revenuecat', String(event.type));
   return json({ ok: true });
 }

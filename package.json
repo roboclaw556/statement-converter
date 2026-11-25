@@ -11,9 +11,13 @@
     "serve": "npx --yes serve dist -l 5173"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.14.0",
     "mimetext": "^3.0.27",
     "pdfjs-dist": "4.10.38",
     "postal-mime": "^2.4.4",
     "unpdf": "^0.12.1"
+  },
+  "devDependencies": {
+    "wrangler": "^4.168.0"
   }
 }

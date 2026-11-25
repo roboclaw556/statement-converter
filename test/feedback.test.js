@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
-import { onRequestPost, onRequestGet, onRequestPatch } from '../functions/api/feedback.js';
+import { onRequestPost, onRequestGet, onRequestPatch } from '../server/routes/feedback.js';
 
 // Minimal stand-in for the D1 binding, backed by in-memory SQLite.
 function fakeD1() {

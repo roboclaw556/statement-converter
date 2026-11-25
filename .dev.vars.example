@@ -1,0 +1,5 @@
+DEV=1
+SITE_URL=http://localhost:8787
+ENC_KEY=
+EXPORT_TOKEN=local-export-token
+IP_SALT=local-salt
