@@ -210,6 +210,7 @@ function isAmbiguous(entry) {
 function recheck(entry) {
   entry.result = reconcile(entry.st);
   if (entry.ocr) flagCarriedDates(entry.result);
+  flagFutureDates(entry.result);
   entry.warnings = [...(entry.st.warnings || [])];
   if (entry.ocr) {
     entry.warnings.unshift('Read from a scan. Check the highlighted rows against the paper statement before exporting.');
@@ -228,6 +229,18 @@ function flagCarriedDates(result) {
   if (!carried.length || carried.length > tx.length * 0.25) return;
   for (const t of carried) if (!t.flags.includes('date_check')) t.flags = [...t.flags, 'date_check'];
   result.flaggedCount = tx.filter((t) => t.flags.length).length;
+}
+
+// A statement can't hold transactions from the future. When the statement period
+// isn't read (often on a scan) the year is guessed, and December rows on a January
+// statement can land a year late; the balance check can't see that, so flag them.
+function flagFutureDates(result, now = new Date()) {
+  const limit = new Date(now.getTime() + 7 * 864e5).toISOString().slice(0, 10);
+  let changed = false;
+  for (const t of result.transactions) {
+    if (t.date > limit && !t.flags.includes('date_check')) { t.flags = [...t.flags, 'date_check']; changed = true; }
+  }
+  if (changed) result.flaggedCount = result.transactions.filter((t) => t.flags.length).length;
 }
 
 function guessCurrency(pages) {
@@ -329,7 +342,7 @@ function renderRows(entry) {
   ol.innerHTML = `<li class="head" aria-hidden="true"><span class="m">Date</span><span class="d">Description</span><span class="a out">Money out</span><span class="a in">Money in</span><span class="b">Balance</span></li>` + rows.join('');
 }
 
-const flagText = (f) => ({ balance_mismatch: 'Balance is off here', sign_guessed: 'In or out? Check', date_check: 'Date unclear on the scan. Check' })[f] || f;
+const flagText = (f) => ({ balance_mismatch: 'Balance is off here', sign_guessed: 'In or out? Check', date_check: 'Check the date' })[f] || f;
 
 $('#rows').addEventListener('click', (e) => {
   const li = e.target.closest('li[data-i]');

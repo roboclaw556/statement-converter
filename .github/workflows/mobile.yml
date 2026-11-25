@@ -1,11 +1,11 @@
 # Builds and tests the iOS and Android app (mobile/). Free on GitHub Actions within the
-# monthly minutes; the macOS job counts 10x, so it runs only for the mobile branch,
-# pull requests that touch the app, and by hand.
+# monthly minutes; the macOS job counts 10x, so it runs only for pull requests that
+# touch the app (and their pushes), main, and by hand.
 name: Mobile app
 
 on:
   push:
-    branches: [mobile]
+    branches: [main]
     paths: ['mobile/**', 'src/core/**', '.github/workflows/mobile.yml']
   pull_request:
     paths: ['mobile/**', 'src/core/**', '.github/workflows/mobile.yml']
