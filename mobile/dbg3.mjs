@@ -1,0 +1,20 @@
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+const { chromium } = require('playwright');
+const http = require('http'), fs = require('fs'), path = require('path');
+const WWW = '/home/user/statement-converter/mobile/www';
+const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.css': 'text/css' };
+const srv = http.createServer((q, r) => { let p = path.join(WWW, new URL(q.url, 'http://x').pathname); if (fs.existsSync(p) && fs.statSync(p).isDirectory()) p = path.join(p, 'index.html'); if (!fs.existsSync(p)) { r.writeHead(404); return r.end(); } r.writeHead(200, { 'content-type': MIME[path.extname(p)] || 'application/octet-stream' }); r.end(fs.readFileSync(p)); });
+await new Promise(r => srv.listen(5197, r));
+const b = await chromium.launch(); const page = await b.newPage();
+await page.goto('http://127.0.0.1:5197/'); await page.waitForFunction(() => globalThis.__app?.ready);
+const b64 = fs.readFileSync(process.argv[2]).toString('base64');
+const out = await page.evaluate(async (b64) => {
+  const m = await import('./ocr-browser.js');
+  const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+  const { canvas, angle } = await m.prepareImage(new Blob([bytes], { type: 'image/jpeg' }));
+  return { angle, url: canvas.toDataURL('image/png'), w: canvas.width, h: canvas.height };
+}, b64);
+console.log(out.angle * 180 / Math.PI, out.w, out.h);
+fs.writeFileSync(process.argv[3], Buffer.from(out.url.split(',')[1], 'base64'));
+await b.close(); srv.close();

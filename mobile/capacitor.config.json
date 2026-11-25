@@ -1,0 +1,13 @@
+{
+  "appId": "com.statementotter.app",
+  "appName": "StatementOtter",
+  "webDir": "www",
+  "backgroundColor": "#fbfaf7",
+  "plugins": {
+    "CapacitorHttp": { "enabled": true },
+    "SplashScreen": { "launchShowDuration": 600, "backgroundColor": "#1f6f4a", "showSpinner": false },
+    "StatusBar": { "overlaysWebView": false }
+  },
+  "ios": { "contentInset": "never", "limitsNavigationsToAppBoundDomains": false },
+  "android": { "allowMixedContent": false }
+}
