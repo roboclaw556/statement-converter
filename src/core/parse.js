@@ -251,6 +251,7 @@ export function parseStatement(pages, opts = {}) {
       if (!date) continue;
       const txn = buildTransaction(amounts, cols, description, date, line);
       if (!txn) continue;
+      txn.dateSource = dateRaw ? 'row' : 'carried'; // carried: the row had no date and took the one above
       transactions.push(txn);
       lastDate = date; inTable = true; prevKind = 'txn'; prevLine = line;
       continue;

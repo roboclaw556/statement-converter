@@ -61,3 +61,12 @@ test('a dropped row is caught by the balance check', async () => {
   assert.equal(result.status, 'mismatch');
   assert.ok(result.flaggedCount >= 1);
 });
+
+test('each transaction says whether its date was printed on the row or carried from above', async () => {
+  const { extractLines, fromLines } = await import('../src/core/index.js');
+  const { pages } = await extractLines(await load('uk_paid_in_out.pdf'));
+  const r = fromLines(pages);
+  assert.ok(r.transactions.every((t) => t.dateSource === 'row' || t.dateSource === 'carried'));
+  assert.ok(r.transactions.some((t) => t.dateSource === 'carried'), 'UK layout prints the date once per day');
+  assert.equal(r.transactions[0].dateSource, 'row');
+});
