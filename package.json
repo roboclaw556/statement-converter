@@ -1,0 +1,19 @@
+{
+  "name": "statement-converter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Bank statement PDF to Excel, CSV, QuickBooks and Xero converter for bookkeepers. Runs in the browser.",
+  "scripts": {
+    "samples": "python3 scripts/make_samples.py",
+    "test": "node --test test/*.test.js",
+    "build": "node scripts/build.js",
+    "serve": "npx --yes serve dist -l 5173"
+  },
+  "dependencies": {
+    "mimetext": "^3.0.27",
+    "pdfjs-dist": "4.10.38",
+    "postal-mime": "^2.4.4",
+    "unpdf": "^0.12.1"
+  }
+}

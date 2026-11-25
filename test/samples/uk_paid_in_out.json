@@ -1,0 +1,186 @@
+{
+ "opening": 120055,
+ "closing": 563689,
+ "transactions": [
+  {
+   "date": "2025-12-20",
+   "description": "Payroll Acme Corp Direct Dep",
+   "amount": 22548,
+   "balance": 142603
+  },
+  {
+   "date": "2025-12-21",
+   "description": "Electric Co Online Pmt",
+   "amount": -87932,
+   "balance": 54671
+  },
+  {
+   "date": "2025-12-22",
+   "description": "Whole Foods Market",
+   "amount": -79572,
+   "balance": null
+  },
+  {
+   "date": "2025-12-22",
+   "description": "Shell Oil 57442",
+   "amount": -76329,
+   "balance": -101230
+  },
+  {
+   "date": "2025-12-25",
+   "description": "Electric Co Online Pmt",
+   "amount": -56598,
+   "balance": -157828
+  },
+  {
+   "date": "2025-12-28",
+   "description": "Atm Withdrawal Main St",
+   "amount": -66874,
+   "balance": -224702
+  },
+  {
+   "date": "2025-12-29",
+   "description": "Refund - Office Depot",
+   "amount": 131913,
+   "balance": -92789
+  },
+  {
+   "date": "2025-12-30",
+   "description": "Shell Oil 57442",
+   "amount": -3747,
+   "balance": -96536
+  },
+  {
+   "date": "2025-12-31",
+   "description": "Refund - Office Depot",
+   "amount": 244577,
+   "balance": 148041
+  },
+  {
+   "date": "2026-01-01",
+   "description": "Atm Withdrawal Main St",
+   "amount": -55673,
+   "balance": 92368
+  },
+  {
+   "date": "2026-01-03",
+   "description": "Electric Co Online Pmt",
+   "amount": -73617,
+   "balance": null
+  },
+  {
+   "date": "2026-01-03",
+   "description": "Monthly Service Fee",
+   "amount": -30375,
+   "balance": null
+  },
+  {
+   "date": "2026-01-03",
+   "description": "Electric Co Online Pmt",
+   "amount": -42767,
+   "balance": null
+  },
+  {
+   "date": "2026-01-03",
+   "description": "Transfer To Savings 4471",
+   "amount": -67018,
+   "balance": -121409
+  },
+  {
+   "date": "2026-01-05",
+   "description": "Stripe Transfer",
+   "amount": 134973,
+   "balance": 13564
+  },
+  {
+   "date": "2026-01-08",
+   "description": "Electric Co Online Pmt",
+   "amount": -58560,
+   "balance": -44996
+  },
+  {
+   "date": "2026-01-09",
+   "description": "Stripe Transfer",
+   "amount": 207327,
+   "balance": 162331
+  },
+  {
+   "date": "2026-01-11",
+   "description": "Stripe Transfer",
+   "amount": 95166,
+   "balance": 257497
+  },
+  {
+   "date": "2026-01-12",
+   "description": "Electric Co Online Pmt",
+   "amount": -52560,
+   "balance": 204937
+  },
+  {
+   "date": "2026-01-15",
+   "description": "Refund - Office Depot",
+   "amount": 171980,
+   "balance": 376917
+  },
+  {
+   "date": "2026-01-17",
+   "description": "Monthly Service Fee",
+   "amount": -64377,
+   "balance": 312540
+  },
+  {
+   "date": "2026-01-18",
+   "description": "Google Workspace",
+   "amount": -65796,
+   "balance": 246744
+  },
+  {
+   "date": "2026-01-20",
+   "description": "Stripe Transfer",
+   "amount": 173756,
+   "balance": 420500
+  },
+  {
+   "date": "2026-01-21",
+   "description": "Refund - Office Depot",
+   "amount": 92253,
+   "balance": 512753
+  },
+  {
+   "date": "2026-01-23",
+   "description": "Refund - Office Depot",
+   "amount": 127861,
+   "balance": 640614
+  },
+  {
+   "date": "2026-01-26",
+   "description": "Monthly Service Fee",
+   "amount": -42704,
+   "balance": 597910
+  },
+  {
+   "date": "2026-01-29",
+   "description": "Electric Co Online Pmt",
+   "amount": -80935,
+   "balance": 516975
+  },
+  {
+   "date": "2026-01-30",
+   "description": "Google Workspace",
+   "amount": -40725,
+   "balance": 476250
+  },
+  {
+   "date": "2026-01-31",
+   "description": "Check 1207",
+   "amount": -41024,
+   "balance": 435226
+  },
+  {
+   "date": "2026-02-03",
+   "description": "Client Invoice 1043 - Harbor Design",
+   "amount": 128463,
+   "balance": 563689
+  }
+ ]
+}

@@ -1,0 +1,294 @@
+{
+ "opening": 523411,
+ "closing": 18528,
+ "transactions": [
+  {
+   "date": "2026-01-01",
+   "description": "PAYROLL ACME CORP DIRECT DEP",
+   "amount": 67164,
+   "balance": 590575
+  },
+  {
+   "date": "2026-01-01",
+   "description": "GOOGLE WORKSPACE",
+   "amount": -59065,
+   "balance": 531510
+  },
+  {
+   "date": "2026-01-02",
+   "description": "ATM WITHDRAWAL MAIN ST",
+   "amount": -27669,
+   "balance": 503841
+  },
+  {
+   "date": "2026-01-02",
+   "description": "GOOGLE WORKSPACE REF 99812 WEB ID 1800948598",
+   "amount": -3865,
+   "balance": 499976
+  },
+  {
+   "date": "2026-01-03",
+   "description": "CHECK 1207",
+   "amount": -79768,
+   "balance": 420208
+  },
+  {
+   "date": "2026-01-03",
+   "description": "REFUND - OFFICE DEPOT",
+   "amount": 70116,
+   "balance": 490324
+  },
+  {
+   "date": "2026-01-06",
+   "description": "MONTHLY SERVICE FEE",
+   "amount": -77633,
+   "balance": 412691
+  },
+  {
+   "date": "2026-01-06",
+   "description": "INSURANCE PREMIUM AUTOPAY",
+   "amount": -4159,
+   "balance": 408532
+  },
+  {
+   "date": "2026-01-06",
+   "description": "AMAZON MKTPLACE PMTS",
+   "amount": -85287,
+   "balance": 323245
+  },
+  {
+   "date": "2026-01-08",
+   "description": "AMAZON MKTPLACE PMTS",
+   "amount": -50115,
+   "balance": 273130
+  },
+  {
+   "date": "2026-01-11",
+   "description": "CLIENT INVOICE 1043 - HARBOR D ESIGN",
+   "amount": 110955,
+   "balance": 384085
+  },
+  {
+   "date": "2026-01-14",
+   "description": "AMAZON MKTPLACE PMTS",
+   "amount": -69307,
+   "balance": 314778
+  },
+  {
+   "date": "2026-01-14",
+   "description": "REFUND - OFFICE DEPOT",
+   "amount": 246496,
+   "balance": 561274
+  },
+  {
+   "date": "2026-01-15",
+   "description": "MONTHLY SERVICE FEE",
+   "amount": -45461,
+   "balance": 515813
+  },
+  {
+   "date": "2026-01-15",
+   "description": "MONTHLY SERVICE FEE",
+   "amount": -60391,
+   "balance": 455422
+  },
+  {
+   "date": "2026-01-16",
+   "description": "AMAZON MKTPLACE PMTS",
+   "amount": -54699,
+   "balance": 400723
+  },
+  {
+   "date": "2026-01-18",
+   "description": "STARBUCKS STORE 1102",
+   "amount": -24517,
+   "balance": 376206
+  },
+  {
+   "date": "2026-01-21",
+   "description": "ZOOM.US SUBSCRIPTION REF 99812 WEB ID 1800948598",
+   "amount": -15995,
+   "balance": 360211
+  },
+  {
+   "date": "2026-01-24",
+   "description": "INSURANCE PREMIUM AUTOPAY",
+   "amount": -65790,
+   "balance": 294421
+  },
+  {
+   "date": "2026-01-25",
+   "description": "CLIENT INVOICE 1043 - HARBOR D ESIGN",
+   "amount": 79826,
+   "balance": 374247
+  },
+  {
+   "date": "2026-01-26",
+   "description": "GOOGLE WORKSPACE",
+   "amount": -66378,
+   "balance": 307869
+  },
+  {
+   "date": "2026-01-27",
+   "description": "SHELL OIL 57442",
+   "amount": -63094,
+   "balance": 244775
+  },
+  {
+   "date": "2026-01-27",
+   "description": "ATM WITHDRAWAL MAIN ST",
+   "amount": -54454,
+   "balance": 190321
+  },
+  {
+   "date": "2026-01-30",
+   "description": "ELECTRIC CO ONLINE PMT",
+   "amount": -48269,
+   "balance": 142052
+  },
+  {
+   "date": "2026-02-01",
+   "description": "STRIPE TRANSFER",
+   "amount": 22966,
+   "balance": 165018
+  },
+  {
+   "date": "2026-02-02",
+   "description": "STARBUCKS STORE 1102",
+   "amount": -21606,
+   "balance": 143412
+  },
+  {
+   "date": "2026-02-04",
+   "description": "ATM WITHDRAWAL MAIN ST",
+   "amount": -48715,
+   "balance": 94697
+  },
+  {
+   "date": "2026-02-05",
+   "description": "AMAZON MKTPLACE PMTS",
+   "amount": -61664,
+   "balance": 33033
+  },
+  {
+   "date": "2026-02-05",
+   "description": "ZOOM.US SUBSCRIPTION",
+   "amount": -80734,
+   "balance": -47701
+  },
+  {
+   "date": "2026-02-07",
+   "description": "ATM WITHDRAWAL MAIN ST",
+   "amount": -84974,
+   "balance": -132675
+  },
+  {
+   "date": "2026-02-07",
+   "description": "ELECTRIC CO ONLINE PMT REF 998 12 WEB ID 1800948598",
+   "amount": -65979,
+   "balance": -198654
+  },
+  {
+   "date": "2026-02-07",
+   "description": "AMAZON MKTPLACE PMTS",
+   "amount": -26301,
+   "balance": -224955
+  },
+  {
+   "date": "2026-02-09",
+   "description": "MONTHLY SERVICE FEE",
+   "amount": -53162,
+   "balance": -278117
+  },
+  {
+   "date": "2026-02-11",
+   "description": "STRIPE TRANSFER",
+   "amount": 249983,
+   "balance": -28134
+  },
+  {
+   "date": "2026-02-13",
+   "description": "STRIPE TRANSFER",
+   "amount": 120658,
+   "balance": 92524
+  },
+  {
+   "date": "2026-02-14",
+   "description": "AMAZON MKTPLACE PMTS",
+   "amount": -50440,
+   "balance": 42084
+  },
+  {
+   "date": "2026-02-17",
+   "description": "TRANSFER TO SAVINGS 4471",
+   "amount": -68134,
+   "balance": -26050
+  },
+  {
+   "date": "2026-02-19",
+   "description": "CLIENT INVOICE 1043 - HARBOR D ESIGN",
+   "amount": 111997,
+   "balance": 85947
+  },
+  {
+   "date": "2026-02-19",
+   "description": "GOOGLE WORKSPACE",
+   "amount": -47956,
+   "balance": 37991
+  },
+  {
+   "date": "2026-02-21",
+   "description": "CLIENT INVOICE 1043 - HARBOR D ESIGN",
+   "amount": 246981,
+   "balance": 284972
+  },
+  {
+   "date": "2026-02-23",
+   "description": "CHECK 1207",
+   "amount": -63710,
+   "balance": 221262
+  },
+  {
+   "date": "2026-02-24",
+   "description": "CHECK 1207",
+   "amount": -45511,
+   "balance": 175751
+  },
+  {
+   "date": "2026-02-24",
+   "description": "INSURANCE PREMIUM AUTOPAY",
+   "amount": -60200,
+   "balance": 115551
+  },
+  {
+   "date": "2026-02-26",
+   "description": "AMAZON MKTPLACE PMTS",
+   "amount": -30244,
+   "balance": 85307
+  },
+  {
+   "date": "2026-03-01",
+   "description": "ELECTRIC CO ONLINE PMT",
+   "amount": -72338,
+   "balance": 12969
+  },
+  {
+   "date": "2026-03-03",
+   "description": "ELECTRIC CO ONLINE PMT",
+   "amount": -12156,
+   "balance": 813
+  },
+  {
+   "date": "2026-03-05",
+   "description": "WHOLE FOODS MARKET",
+   "amount": -4404,
+   "balance": -3591
+  },
+  {
+   "date": "2026-03-08",
+   "description": "PAYROLL ACME CORP DIRECT DEP",
+   "amount": 22119,
+   "balance": 18528
+  }
+ ]
+}

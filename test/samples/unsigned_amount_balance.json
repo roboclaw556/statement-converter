@@ -1,0 +1,138 @@
+{
+ "opening": 250000,
+ "closing": 596451,
+ "transactions": [
+  {
+   "date": "2026-04-04",
+   "description": "WHOLE FOODS MARKET",
+   "amount": -47143,
+   "balance": 202857
+  },
+  {
+   "date": "2026-04-07",
+   "description": "AMAZON MKTPLACE PMTS",
+   "amount": -61180,
+   "balance": 141677
+  },
+  {
+   "date": "2026-04-07",
+   "description": "SHELL OIL 57442",
+   "amount": -20708,
+   "balance": 120969
+  },
+  {
+   "date": "2026-04-07",
+   "description": "STRIPE TRANSFER",
+   "amount": 123263,
+   "balance": 244232
+  },
+  {
+   "date": "2026-04-07",
+   "description": "ATM WITHDRAWAL MAIN ST",
+   "amount": -71421,
+   "balance": 172811
+  },
+  {
+   "date": "2026-04-07",
+   "description": "MONTHLY SERVICE FEE",
+   "amount": -1868,
+   "balance": 170943
+  },
+  {
+   "date": "2026-04-10",
+   "description": "CLIENT INVOICE 1043 - HARBOR DESIGN",
+   "amount": 107294,
+   "balance": 278237
+  },
+  {
+   "date": "2026-04-11",
+   "description": "ELECTRIC CO ONLINE PMT",
+   "amount": -51194,
+   "balance": 227043
+  },
+  {
+   "date": "2026-04-11",
+   "description": "PAYROLL ACME CORP DIRECT DEP",
+   "amount": 36677,
+   "balance": 263720
+  },
+  {
+   "date": "2026-04-13",
+   "description": "REFUND - OFFICE DEPOT",
+   "amount": 33513,
+   "balance": 297233
+  },
+  {
+   "date": "2026-04-13",
+   "description": "AMAZON MKTPLACE PMTS",
+   "amount": -846,
+   "balance": 296387
+  },
+  {
+   "date": "2026-04-13",
+   "description": "CLIENT INVOICE 1043 - HARBOR DESIGN",
+   "amount": 43778,
+   "balance": 340165
+  },
+  {
+   "date": "2026-04-13",
+   "description": "ZOOM.US SUBSCRIPTION",
+   "amount": -41260,
+   "balance": 298905
+  },
+  {
+   "date": "2026-04-13",
+   "description": "CLIENT INVOICE 1043 - HARBOR DESIGN",
+   "amount": 47923,
+   "balance": 346828
+  },
+  {
+   "date": "2026-04-16",
+   "description": "CLIENT INVOICE 1043 - HARBOR DESIGN",
+   "amount": 234589,
+   "balance": 581417
+  },
+  {
+   "date": "2026-04-17",
+   "description": "ZOOM.US SUBSCRIPTION",
+   "amount": -2977,
+   "balance": 578440
+  },
+  {
+   "date": "2026-04-18",
+   "description": "CHECK 1207",
+   "amount": -21902,
+   "balance": 556538
+  },
+  {
+   "date": "2026-04-18",
+   "description": "WHOLE FOODS MARKET",
+   "amount": -8687,
+   "balance": 547851
+  },
+  {
+   "date": "2026-04-19",
+   "description": "ZOOM.US SUBSCRIPTION",
+   "amount": -79200,
+   "balance": 468651
+  },
+  {
+   "date": "2026-04-21",
+   "description": "AMAZON MKTPLACE PMTS",
+   "amount": -78266,
+   "balance": 390385
+  },
+  {
+   "date": "2026-04-24",
+   "description": "INSURANCE PREMIUM AUTOPAY",
+   "amount": -8803,
+   "balance": 381582
+  },
+  {
+   "date": "2026-04-25",
+   "description": "STRIPE TRANSFER",
+   "amount": 214869,
+   "balance": 596451
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+# Cloudflare Pages project (free plan). Static files come from dist/, the API from functions/.
+name = "statement-converter"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-11-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "statement-converter"
+database_id = "REPLACE_WITH_ID_FROM_wrangler_d1_create"
+
+# Secrets (not in this file): npx wrangler pages secret put EXPORT_TOKEN / IP_SALT

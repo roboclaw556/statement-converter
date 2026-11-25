@@ -1,0 +1,126 @@
+{
+ "opening": 75000,
+ "closing": -536829,
+ "transactions": [
+  {
+   "date": "2026-02-01",
+   "description": "ZOOM.US SUBSCRIPTION",
+   "amount": -13672,
+   "balance": null
+  },
+  {
+   "date": "2026-02-04",
+   "description": "ATM WITHDRAWAL MAIN ST",
+   "amount": -62917,
+   "balance": null
+  },
+  {
+   "date": "2026-02-04",
+   "description": "PAYROLL ACME CORP DIRECT DEP",
+   "amount": 17736,
+   "balance": null
+  },
+  {
+   "date": "2026-02-04",
+   "description": "ATM WITHDRAWAL MAIN ST",
+   "amount": -72161,
+   "balance": null
+  },
+  {
+   "date": "2026-02-05",
+   "description": "SHELL OIL 57442",
+   "amount": -29238,
+   "balance": null
+  },
+  {
+   "date": "2026-02-07",
+   "description": "STRIPE TRANSFER",
+   "amount": 72830,
+   "balance": null
+  },
+  {
+   "date": "2026-02-07",
+   "description": "STARBUCKS STORE 1102",
+   "amount": -34454,
+   "balance": null
+  },
+  {
+   "date": "2026-02-07",
+   "description": "AMAZON MKTPLACE PMTS",
+   "amount": -84126,
+   "balance": null
+  },
+  {
+   "date": "2026-02-08",
+   "description": "WHOLE FOODS MARKET",
+   "amount": -25503,
+   "balance": null
+  },
+  {
+   "date": "2026-02-08",
+   "description": "ZOOM.US SUBSCRIPTION",
+   "amount": -38113,
+   "balance": null
+  },
+  {
+   "date": "2026-02-11",
+   "description": "STRIPE TRANSFER",
+   "amount": 23032,
+   "balance": null
+  },
+  {
+   "date": "2026-02-13",
+   "description": "INSURANCE PREMIUM AUTOPAY",
+   "amount": -88191,
+   "balance": null
+  },
+  {
+   "date": "2026-02-14",
+   "description": "MONTHLY SERVICE FEE",
+   "amount": -23453,
+   "balance": null
+  },
+  {
+   "date": "2026-02-14",
+   "description": "GOOGLE WORKSPACE",
+   "amount": -36849,
+   "balance": null
+  },
+  {
+   "date": "2026-02-14",
+   "description": "ZOOM.US SUBSCRIPTION",
+   "amount": -1095,
+   "balance": null
+  },
+  {
+   "date": "2026-02-15",
+   "description": "ZOOM.US SUBSCRIPTION",
+   "amount": -66783,
+   "balance": null
+  },
+  {
+   "date": "2026-02-15",
+   "description": "CHECK 1207",
+   "amount": -55689,
+   "balance": null
+  },
+  {
+   "date": "2026-02-17",
+   "description": "ZOOM.US SUBSCRIPTION",
+   "amount": -56647,
+   "balance": null
+  },
+  {
+   "date": "2026-02-18",
+   "description": "ELECTRIC CO ONLINE PMT",
+   "amount": -30719,
+   "balance": null
+  },
+  {
+   "date": "2026-02-19",
+   "description": "WHOLE FOODS MARKET",
+   "amount": -5817,
+   "balance": null
+  }
+ ]
+}

@@ -1,0 +1,156 @@
+{
+ "opening": 1000000,
+ "closing": 54682,
+ "transactions": [
+  {
+   "date": "2026-03-01",
+   "description": "TRANSFER TO SAVINGS 4471",
+   "amount": -48640,
+   "balance": 951360
+  },
+  {
+   "date": "2026-03-03",
+   "description": "GOOGLE WORKSPACE",
+   "amount": -82164,
+   "balance": 869196
+  },
+  {
+   "date": "2026-03-05",
+   "description": "PAYROLL ACME CORP DIRECT DEP",
+   "amount": 159054,
+   "balance": 1028250
+  },
+  {
+   "date": "2026-03-05",
+   "description": "GOOGLE WORKSPACE",
+   "amount": -34144,
+   "balance": 994106
+  },
+  {
+   "date": "2026-03-07",
+   "description": "MONTHLY SERVICE FEE",
+   "amount": -25282,
+   "balance": 968824
+  },
+  {
+   "date": "2026-03-10",
+   "description": "GOOGLE WORKSPACE",
+   "amount": -71056,
+   "balance": 897768
+  },
+  {
+   "date": "2026-03-12",
+   "description": "GOOGLE WORKSPACE",
+   "amount": -52203,
+   "balance": 845565
+  },
+  {
+   "date": "2026-03-15",
+   "description": "TRANSFER TO SAVINGS 4471",
+   "amount": -30548,
+   "balance": 815017
+  },
+  {
+   "date": "2026-03-18",
+   "description": "TRANSFER TO SAVINGS 4471",
+   "amount": -68724,
+   "balance": 746293
+  },
+  {
+   "date": "2026-03-19",
+   "description": "AMAZON MKTPLACE PMTS",
+   "amount": -88153,
+   "balance": 658140
+  },
+  {
+   "date": "2026-03-19",
+   "description": "ELECTRIC CO ONLINE PMT",
+   "amount": -77626,
+   "balance": 580514
+  },
+  {
+   "date": "2026-03-19",
+   "description": "ZOOM.US SUBSCRIPTION",
+   "amount": -4214,
+   "balance": 576300
+  },
+  {
+   "date": "2026-03-20",
+   "description": "GOOGLE WORKSPACE",
+   "amount": -78105,
+   "balance": 498195
+  },
+  {
+   "date": "2026-03-23",
+   "description": "ATM WITHDRAWAL MAIN ST",
+   "amount": -56109,
+   "balance": 442086
+  },
+  {
+   "date": "2026-03-24",
+   "description": "REFUND - OFFICE DEPOT",
+   "amount": 245558,
+   "balance": 687644
+  },
+  {
+   "date": "2026-03-24",
+   "description": "STRIPE TRANSFER",
+   "amount": 25847,
+   "balance": 713491
+  },
+  {
+   "date": "2026-03-24",
+   "description": "TRANSFER TO SAVINGS 4471",
+   "amount": -65015,
+   "balance": 648476
+  },
+  {
+   "date": "2026-03-24",
+   "description": "WHOLE FOODS MARKET",
+   "amount": -88235,
+   "balance": 560241
+  },
+  {
+   "date": "2026-03-25",
+   "description": "ZOOM.US SUBSCRIPTION",
+   "amount": -55350,
+   "balance": 504891
+  },
+  {
+   "date": "2026-03-27",
+   "description": "ATM WITHDRAWAL MAIN ST",
+   "amount": -75388,
+   "balance": 429503
+  },
+  {
+   "date": "2026-03-28",
+   "description": "CHECK 1207",
+   "amount": -76729,
+   "balance": 352774
+  },
+  {
+   "date": "2026-03-28",
+   "description": "INSURANCE PREMIUM AUTOPAY",
+   "amount": -89538,
+   "balance": 263236
+  },
+  {
+   "date": "2026-03-28",
+   "description": "WHOLE FOODS MARKET",
+   "amount": -79555,
+   "balance": 183681
+  },
+  {
+   "date": "2026-03-31",
+   "description": "ELECTRIC CO ONLINE PMT",
+   "amount": -42930,
+   "balance": 140751
+  },
+  {
+   "date": "2026-04-02",
+   "description": "STARBUCKS STORE 1102",
+   "amount": -86069,
+   "balance": 54682
+  }
+ ]
+}

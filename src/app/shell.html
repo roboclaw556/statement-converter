@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<link rel="canonical" href="{{canonical}}">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{canonical}}">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f6f4a'/%3E%3Cpath d='M9 17l5 5 9-11' stroke='white' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="{{root}}styles.css">
+{{jsonld}}
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="{{root}}"><span class="logo" aria-hidden="true">✓</span>{{brand}}</a>
+  <nav><a href="{{root}}banks/">Banks</a><a href="{{root}}#how">How it works</a><a href="{{root}}#pricing">Pricing</a><a href="{{root}}feedback/">Feedback</a></nav>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>{{h1}}</h1>
+    <p class="lead">{{lead}}</p>
+  </section>
+
+  {{tool}}
+
+  {{content}}
+</main>
+
+<footer class="site">
+  <p>{{brand}} is not affiliated with any bank named on this site. Bank names are used only to describe the statements the tool reads.</p>
+  <p><a href="{{root}}banks/">All banks</a> · <a href="{{root}}feedback/">Send feedback</a> · <a href="{{root}}privacy/">Privacy</a></p>
+</footer>
+
+{{scripts}}
+</body>
+</html>
