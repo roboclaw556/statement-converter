@@ -8,7 +8,7 @@ from PIL import Image, ImageFilter
 src, out = sys.argv[1], sys.argv[2]
 os.makedirs(out, exist_ok=True)
 random.seed(7)
-for pdf in sorted(glob.glob(os.path.join(src, '*.pdf'))):
+for pdf in [p for p in sorted(glob.glob(os.path.join(src, '*.pdf'))) if os.path.exists(p[:-4] + '.json')]:  # samples with expected results only
     name = os.path.basename(pdf)[:-4]
     subprocess.run(['pdftoppm', '-r', '200', '-png', pdf, os.path.join(out, name + '__scan')], check=True)
     for png in sorted(glob.glob(os.path.join(out, name + '__scan-*.png'))):
@@ -36,7 +36,7 @@ for pdf in sorted(glob.glob(os.path.join(src, '*.pdf'))):
 print('ok')
 
 # scanned PDFs (image only, no text layer) and a password-protected PDF
-for pdf in sorted(glob.glob(os.path.join(src, '*.pdf'))):
+for pdf in [p for p in sorted(glob.glob(os.path.join(src, '*.pdf'))) if os.path.exists(p[:-4] + '.json')]:  # samples with expected results only
     name = os.path.basename(pdf)[:-4]
     pages = [Image.open(p).convert('RGB') for p in sorted(glob.glob(os.path.join(out, name + '__scan-*.png')))]
     pages[0].save(os.path.join(out, name + '__scanned.pdf'), save_all=True, append_images=pages[1:], resolution=200)
